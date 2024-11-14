@@ -8,7 +8,7 @@
 int main(int argc, char **argv, char **env)
 {
     int simcyc;     // simulation clock count
-    int tick;       // each clk cycle has two ticks for two edges
+    int clk;       // each clk cycle has two ticks for two edges
     int lights = 0; // state to toggle LED lights
 
     Verilated::commandArgs(argc, argv);
@@ -36,9 +36,9 @@ int main(int argc, char **argv, char **env)
     for (simcyc = 0; simcyc < MAX_SIM_CYC; simcyc++)
     {
         // dump variables into VCD file and toggle clock
-        for (tick = 0; tick < 2; tick++)
+        for (clk = 0; clk < 2; clk++)
         {
-            tfp->dump(2 * simcyc + tick);
+            tfp->dump(2 * simcyc + clk);
             top->clk = !top->clk;
             top->eval();
         }
